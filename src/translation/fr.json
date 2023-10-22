@@ -1,0 +1,9 @@
+{
+    "app": {
+        "login": {
+            "action": "Connexion"
+        },
+        "title": "Weather"
+    },
+    "test": "Un test ok"
+}
