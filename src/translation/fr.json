@@ -1,7 +1,18 @@
 {
     "app": {
-        "login": {
-            "action": "Connexion"
+        "auth": {
+            "email": "Email",
+            "errors": {
+                "email": "Email invalide",
+                "password": {
+                    "toLong": "Mots de passe trop grand",
+                    "toShort": "Mots de passe trop court"
+                }
+            },
+            "login": {
+                "action": "Connexion"
+            },
+            "password": "Mots de passe"
         },
         "title": "Weather"
     },

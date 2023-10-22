@@ -1,7 +1,18 @@
 {
     "app": {
-        "login": {
-            "action": "Login"
+        "auth": {
+            "email": "Email",
+            "errors": {
+                "email": "Invalid Email",
+                "password": {
+                    "toLong": "",
+                    "toShort": ""
+                }
+            },
+            "login": {
+                "action": "Login"
+            },
+            "password": "password"
         }
     }
 }
