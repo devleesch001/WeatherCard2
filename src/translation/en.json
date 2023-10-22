@@ -10,9 +10,10 @@
                 }
             },
             "login": {
-                "action": "Login"
+                "action": "SignIn"
             },
             "password": "password"
-        }
+        },
+        "title": "Weather"
     }
 }

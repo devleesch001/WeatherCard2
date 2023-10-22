@@ -1,6 +1,6 @@
 import { FC, useContext, useState } from 'react';
 import { UserContext } from '../provider/UserProvider.tsx';
-import { Box, Button, TextField } from '@mui/material';
+import { Box, Button, TextField, Typography } from '@mui/material';
 import { t } from 'i18next';
 import validator from '../utils/validator.ts';
 
@@ -25,9 +25,11 @@ const LoginForm: FC = () => {
         userContext
             ?.login(username, password)
             .then(() => {
+                // todo display to user is ok
                 console.log('ok');
             })
             .catch(() => {
+                // todo display error
                 console.log('error');
             });
     };
@@ -37,8 +39,6 @@ const LoginForm: FC = () => {
 
     return (
         <>
-            <p>user : {username}</p>
-            <p>password : {password}</p>
             <Box
                 component="form"
                 sx={{
@@ -49,6 +49,9 @@ const LoginForm: FC = () => {
                 }}
                 autoComplete="off"
             >
+                <Typography variant="h5" component="h1">
+                    {t('app.auth.login.action')}
+                </Typography>
                 <TextField
                     error={isValidate && !validator.validEmail(username)}
                     label={t('app.auth.email')}
