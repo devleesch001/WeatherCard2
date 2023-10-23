@@ -1,18 +1,30 @@
 {
     "app": {
         "auth": {
+            "confirmPassword": "Confirmation du mots de passe",
             "email": "Email",
             "errors": {
+                "confirmPassword": {
+                    "inEqual": "Le mots de passe ne correpond pas"
+                },
                 "email": "Email invalide",
                 "password": {
                     "toLong": "Mots de passe trop grand",
                     "toShort": "Mots de passe trop court"
+                },
+                "username": {
+                    "toLong": "Nom d'utilisateur trop long",
+                    "toShort": "Nom d'utilisateur trop court"
                 }
             },
             "login": {
                 "action": "Connexion"
             },
-            "password": "Mots de passe"
+            "password": "Mots de passe",
+            "register": {
+                "action": "S'enregistrer"
+            },
+            "username": "Nom d'utilisateur"
         },
         "title": "Météo"
     },

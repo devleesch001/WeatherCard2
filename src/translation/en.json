@@ -1,18 +1,30 @@
 {
     "app": {
         "auth": {
+            "confirmPassword": "Confirm Password",
             "email": "Email",
             "errors": {
+                "confirmPassword": {
+                    "inEqual": ""
+                },
                 "email": "Invalid Email",
                 "password": {
                     "toLong": "",
                     "toShort": ""
+                },
+                "username": {
+                    "toLong": "Username too long",
+                    "toShort": "Username too short"
                 }
             },
             "login": {
                 "action": "SignIn"
             },
-            "password": "password"
+            "password": "password",
+            "register": {
+                "action": "Register"
+            },
+            "username": "Username"
         },
         "title": "Weather"
     }

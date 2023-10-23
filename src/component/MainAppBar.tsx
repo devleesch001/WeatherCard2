@@ -1,25 +1,13 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import {
-    alpha,
-    AppBar,
-    Box,
-    Button,
-    IconButton,
-    InputBase,
-    Modal,
-    Paper,
-    styled,
-    Toolbar,
-    Typography,
-} from '@mui/material';
+import { alpha, AppBar, Box, Button, IconButton, InputBase, styled, Toolbar, Typography } from '@mui/material';
 
 import SunnyIcon from '@mui/icons-material/WbSunny';
 import SearchIcon from '@mui/icons-material/Search';
 import LoginIcon from '@mui/icons-material/Login';
 
-import LoginForm from '../user/LoginForm.tsx';
+import ModalAuth from '../user/ModalAuth.tsx';
 
 const Search = styled('div')(({ theme }) => ({
     position: 'relative',
@@ -100,44 +88,7 @@ export default function MainAppBar() {
                     </Box>
                 </Toolbar>
             </AppBar>
-            <LoginModal open={isLoginModalOpen} onClose={() => setIsLoginModalOpen(false)} />
+            <ModalAuth open={isLoginModalOpen} onClose={() => setIsLoginModalOpen(false)} />
         </Box>
     );
 }
-
-interface LoginModalProps {
-    open: boolean;
-    onClose?(event: object, reason: 'backdropClick' | 'escapeKeyDown'): void;
-}
-
-const LoginModal: React.FC<LoginModalProps> = (props) => {
-    const { open, onClose } = props;
-
-    const style = {
-        position: 'absolute',
-        top: '50%',
-        left: '50%',
-        transform: 'translate(-50%, -50%)',
-        width: {
-            sm: '450px',
-            xs: '100%',
-        },
-    };
-
-    return (
-        <Modal
-            open={open}
-            onClose={onClose}
-            aria-labelledby="modal-modal-title"
-            aria-describedby="modal-modal-description"
-        >
-            <Box sx={style}>
-                <Paper>
-                    <Box padding={'40px'}>
-                        <LoginForm />
-                    </Box>
-                </Paper>
-            </Box>
-        </Modal>
-    );
-};
