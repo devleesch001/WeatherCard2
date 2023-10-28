@@ -1,8 +1,16 @@
 import type { IUser } from '../provider/UserProvider.tsx';
 import axios from 'axios';
 
-const login = async (user: string, password: string) => {
-    return await axios.post<IUser>('/login', { user, password });
+interface ILoginResponse {
+    token: string;
+}
+
+const login = async (email: string, password: string) => {
+    return await axios.post<ILoginResponse>('/auth/login', { email, password });
 };
 
-export default { login };
+const register = async (email: string, username: string, password: string) => {
+    return await axios.post<IUser>('/auth/register', { email, username, password });
+};
+
+export default { login, register };

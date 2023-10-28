@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom/client';
 
 import './i18n';
 import './main.css';
+import './axios.ts';
 
 import App from './App.tsx';
 import UserProvider from './provider/UserProvider.tsx';

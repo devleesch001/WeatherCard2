@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { alpha, AppBar, Box, Button, IconButton, InputBase, styled, Toolbar, Typography } from '@mui/material';
@@ -6,8 +6,12 @@ import { alpha, AppBar, Box, Button, IconButton, InputBase, styled, Toolbar, Typ
 import SunnyIcon from '@mui/icons-material/WbSunny';
 import SearchIcon from '@mui/icons-material/Search';
 import LoginIcon from '@mui/icons-material/Login';
+import AccountIcon from '@mui/icons-material/AccountCircle';
 
 import ModalAuth from '../user/ModalAuth.tsx';
+import { UserContext } from '../provider/UserProvider.tsx';
+import ModalComponent from './ModalComponent.tsx';
+import ProfileUser from '../user/ProfileUser.tsx';
 
 const Search = styled('div')(({ theme }) => ({
     position: 'relative',
@@ -16,8 +20,8 @@ const Search = styled('div')(({ theme }) => ({
     '&:hover': {
         backgroundColor: alpha(theme.palette.common.white, 0.25),
     },
-    marginRight: 0,
-    marginLeft: 0,
+    marginRight: 4,
+    marginLeft: 4,
     width: '100%',
     [theme.breakpoints.up('sm')]: {
         marginLeft: theme.spacing(3),
@@ -53,6 +57,10 @@ export default function MainAppBar() {
     const { t } = useTranslation();
 
     const [isLoginModalOpen, setIsLoginModalOpen] = useState<boolean>(false);
+    const [isProfileModalOpen, setIsProfileModalOpen] = useState<boolean>(false);
+
+    // get user from user provider
+    const userContext = useContext(UserContext);
 
     return (
         <Box sx={{ flexGrow: 1 }}>
@@ -69,26 +77,45 @@ export default function MainAppBar() {
                         <StyledInputBase placeholder="Search…" inputProps={{ 'aria-label': 'search' }} />
                     </Search>
                     <Box sx={{ flexGrow: 1 }} />
-                    <Box>
-                        <Button
-                            color="inherit"
-                            onClick={() => setIsLoginModalOpen(true)}
-                            sx={{ display: { xs: 'none', sm: 'block' } }}
-                        >
-                            {t('app.auth.login.action')}
-                        </Button>
-                        <IconButton
-                            aria-label="login"
-                            color="inherit"
-                            sx={{ display: { sm: 'none' } }}
-                            onClick={() => setIsLoginModalOpen(true)}
-                        >
-                            <LoginIcon />
-                        </IconButton>
+                    <Box sx={{ display: { xs: 'flex', md: 'flex' } }}>
+                        {userContext?.user ? (
+                            <IconButton
+                                size="large"
+                                edge="end"
+                                aria-label="account of current user"
+                                aria-haspopup="true"
+                                arial-label="Profil"
+                                color="inherit"
+                                onClick={() => setIsProfileModalOpen(true)}
+                            >
+                                <AccountIcon />
+                            </IconButton>
+                        ) : (
+                            <>
+                                <Button
+                                    color="inherit"
+                                    onClick={() => setIsLoginModalOpen(true)}
+                                    sx={{ display: { xs: 'none', sm: 'block' } }}
+                                >
+                                    <Typography noWrap>{t('app.auth.login.action')}</Typography>
+                                </Button>
+                                <IconButton
+                                    aria-label="login"
+                                    color="inherit"
+                                    sx={{ display: { sm: 'none' } }}
+                                    onClick={() => setIsLoginModalOpen(true)}
+                                >
+                                    <LoginIcon />
+                                </IconButton>
+                            </>
+                        )}
                     </Box>
                 </Toolbar>
             </AppBar>
             <ModalAuth open={isLoginModalOpen} onClose={() => setIsLoginModalOpen(false)} />
+            <ModalComponent open={isProfileModalOpen} onClose={() => setIsProfileModalOpen(false)}>
+                <ProfileUser />
+            </ModalComponent>
         </Box>
     );
 }
