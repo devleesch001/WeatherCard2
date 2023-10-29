@@ -14,6 +14,7 @@ interface IUserProvider {
     error: string | null;
     login(login: string, password: string): Promise<void>;
     register(email: string, username: string, password: string): Promise<void>;
+    logout(): void;
     loadLocalStorage(): void;
 }
 
@@ -61,8 +62,13 @@ const UserProvider: FC<UserProviderProps> = ({ children }) => {
         }
     };
 
+    const logout = () => {
+        localStorage.removeItem('token');
+        setUser(null);
+    };
+
     return (
-        <UserContext.Provider value={{ user, error, login, register, loadLocalStorage }}>
+        <UserContext.Provider value={{ user, error, login, register, logout, loadLocalStorage }}>
             {children}
         </UserContext.Provider>
     );

@@ -1,7 +1,8 @@
-import { useContext, useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { alpha, AppBar, Box, Button, IconButton, InputBase, styled, Toolbar, Typography } from '@mui/material';
+import { AppBar, Box, Button, IconButton, InputBase, Menu, MenuItem, Toolbar, Typography } from '@mui/material';
+import { alpha, styled } from '@mui/material';
 
 import SunnyIcon from '@mui/icons-material/WbSunny';
 import SearchIcon from '@mui/icons-material/Search';
@@ -58,6 +59,15 @@ export default function MainAppBar() {
 
     const [isLoginModalOpen, setIsLoginModalOpen] = useState<boolean>(false);
     const [isProfileModalOpen, setIsProfileModalOpen] = useState<boolean>(false);
+    const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+
+    const handleMenu = (event: React.MouseEvent<HTMLElement>) => {
+        setAnchorEl(event.currentTarget);
+    };
+
+    const handleClose = () => {
+        setAnchorEl(null);
+    };
 
     // get user from user provider
     const userContext = useContext(UserContext);
@@ -79,17 +89,51 @@ export default function MainAppBar() {
                     <Box sx={{ flexGrow: 1 }} />
                     <Box sx={{ display: { xs: 'flex', md: 'flex' } }}>
                         {userContext?.user ? (
-                            <IconButton
-                                size="large"
-                                edge="end"
-                                aria-label="account of current user"
-                                aria-haspopup="true"
-                                arial-label="Profil"
-                                color="inherit"
-                                onClick={() => setIsProfileModalOpen(true)}
-                            >
-                                <AccountIcon />
-                            </IconButton>
+                            <>
+                                <IconButton
+                                    size="large"
+                                    edge="end"
+                                    aria-label="account of current user"
+                                    aria-haspopup="true"
+                                    arial-label="Profil"
+                                    color="inherit"
+                                    onClick={(e) => handleMenu(e)}
+                                >
+                                    <AccountIcon />
+                                </IconButton>
+                                <Menu
+                                    id="menu-appbar"
+                                    anchorEl={anchorEl}
+                                    anchorOrigin={{
+                                        vertical: 'top',
+                                        horizontal: 'right',
+                                    }}
+                                    keepMounted
+                                    transformOrigin={{
+                                        vertical: 'top',
+                                        horizontal: 'right',
+                                    }}
+                                    open={Boolean(anchorEl)}
+                                    onClose={handleClose}
+                                >
+                                    <MenuItem
+                                        onClick={() => {
+                                            handleClose();
+                                            setIsProfileModalOpen(true);
+                                        }}
+                                    >
+                                        {t('app.profile.title')}
+                                    </MenuItem>
+                                    <MenuItem
+                                        onClick={() => {
+                                            handleClose();
+                                            userContext?.logout();
+                                        }}
+                                    >
+                                        {t('app.profile.logout')}
+                                    </MenuItem>
+                                </Menu>
+                            </>
                         ) : (
                             <>
                                 <Button

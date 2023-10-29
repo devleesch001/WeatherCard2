@@ -1,11 +1,15 @@
 {
     "app": {
+        "profile": {
+            "title": "Profil",
+            "logout": "Déconnexion"
+        },
         "auth": {
             "confirmPassword": "Confirmation du mots de passe",
             "email": "Email",
             "errors": {
                 "confirmPassword": {
-                    "inEqual": "Le mots de passe ne correpond pas"
+                    "inEqual": "Le mots de passe ne correspond pas"
                 },
                 "email": "Email invalide",
                 "password": {

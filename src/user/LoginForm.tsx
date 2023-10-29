@@ -4,7 +4,13 @@ import { Box, Button, TextField, Typography } from '@mui/material';
 import { t } from 'i18next';
 import validator from '../utils/validator.ts';
 
-const LoginForm: FC = () => {
+interface LoginFormProps {
+    onSuccess?: () => void;
+}
+
+const LoginForm: FC<LoginFormProps> = (props) => {
+    const { onSuccess } = props;
+
     const [email, setEmail] = useState<string>('');
     const [password, setPassword] = useState<string>('');
     const userContext = useContext(UserContext);
@@ -26,11 +32,12 @@ const LoginForm: FC = () => {
             ?.login(email, password)
             .then(() => {
                 // todo display to user is ok
-                console.log('ok');
+                console.log('todo display to user is ok');
+                onSuccess && onSuccess();
             })
             .catch(() => {
                 // todo display error
-                console.log('error');
+                console.log('display error on submit form');
             });
     };
     const handleChange = () => {

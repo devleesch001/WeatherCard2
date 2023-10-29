@@ -10,7 +10,7 @@ const ProfileUser: React.FC = () => {
     return (
         <Paper elevation={3}>
             <Box sx={{ padding: 2 }}>
-                <Typography variant="h3">User Profile</Typography>
+                <Typography variant="h3">{t('app.profile.title')}</Typography>
                 <Typography>
                     {t('app.auth.username')} : {userProvider?.user?.username}
                 </Typography>

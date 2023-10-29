@@ -15,7 +15,7 @@ function a11yProps(index: number) {
 
 interface LoginModalProps {
     open: boolean;
-    onClose?(event: object, reason: 'backdropClick' | 'escapeKeyDown'): void;
+    onClose?(): void;
 }
 const ModalAuth: React.FC<LoginModalProps> = (props) => {
     const { open, onClose } = props;
@@ -68,7 +68,13 @@ const ModalAuth: React.FC<LoginModalProps> = (props) => {
                             />
                         </Tabs>
                     </Paper>
-                    <Box padding={'40px'}>{value == 0 ? <LoginForm /> : <RegisterForm />}</Box>
+                    <Box padding={'40px'}>
+                        {value == 0 ? (
+                            <LoginForm onSuccess={() => onClose && onClose()} />
+                        ) : (
+                            <RegisterForm onSuccess={() => onClose && onClose()} />
+                        )}
+                    </Box>
                 </Paper>
             </Box>
         </Modal>

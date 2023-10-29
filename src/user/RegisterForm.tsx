@@ -27,7 +27,13 @@ const validConfirmPassword = (password: string, confirmPassword: string) => {
     return password == confirmPassword ? '' : t('app.auth.errors.confirmPassword.inEqual');
 };
 
-const LoginForm: FC = () => {
+interface LoginFormProps {
+    onSuccess?: () => void;
+}
+
+const LoginForm: FC<LoginFormProps> = (props) => {
+    const { onSuccess } = props;
+
     const [email, setEmail] = useState<string>('');
     const [username, setUsername] = useState<string>('');
     const [password, setPassword] = useState<string>('');
@@ -41,12 +47,12 @@ const LoginForm: FC = () => {
         userContext
             ?.login(username, password)
             .then(() => {
-                // todo display to user is ok
-                console.log('ok');
+                onSuccess && onSuccess();
+                console.log('todo display to user register is ok');
             })
             .catch(() => {
                 // todo display error
-                console.log('error');
+                console.log('todo display error on submit form');
             });
     };
     const handleChange = () => {
